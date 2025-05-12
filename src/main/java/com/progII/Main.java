@@ -2,12 +2,14 @@ package com.progII;
 
 import com.progII.interfaces.Calculadora;
 import com.progII.interfaces.Mensaje;
+import com.progII.model.Persona;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-
+        Persona p = new Persona();
+        Persona.ok();
 
         // forma imperativa
 //        CalcularSuma suma = new CalcularSuma();

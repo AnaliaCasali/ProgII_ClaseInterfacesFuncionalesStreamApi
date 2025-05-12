@@ -5,7 +5,11 @@ import com.progII.model.Persona;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 public class listaPersonas {
@@ -31,15 +35,57 @@ public class listaPersonas {
 
         personas.stream().forEach(getPersonayMostrar());
 
+        // genera como resultado una lista de personas del genero masculo  
         List<Persona> masculinos=
                 personas.stream()
-                        .filter(p -> p.getGenero()==Genero.MASCULINO)
+                        .filter(getPersonaMasculino())
                         .collect(Collectors.toList());
 
         System.out.println("----- Lista de personas masculinos----");
         masculinos.stream().forEach(getPersonayMostrar());
 
+        System.out.println("lista de nombres en mayuscula");
+        //map trasnsforma
+        List<String> nombresMay= personas.stream()
+            .map( (p) -> p.getNombre().toUpperCase())
+            .collect(Collectors.toList());
+        nombresMay.stream().forEach(System.out::println);
 
+        List<Integer> largosNombres= personas.stream()
+                .map(p-> p.getNombre().length())
+                .distinct()
+                .collect(Collectors.toList());
+
+        System.out.println("largo de los nombres");
+        largosNombres.stream().forEach(System.out::println);
+
+
+        Optional<Integer> max= personas.stream()
+            .map(p-> p.getNombre().length())
+            .distinct()
+            .max(Integer::compareTo);
+
+
+        System.out.println("El mas largo es" + max.orElse(0));
+
+
+
+
+
+
+
+    }
+
+    private static Function<Persona, String> getNombrePersonaEnMayuscula() {
+        return (p) -> p.getNombre().toUpperCase();
+    }
+
+    private static Collector<Persona, ?, List<Persona>> getList() {
+        return Collectors.toList();
+    }
+
+    private static Predicate<Persona> getPersonaMasculino() {
+        return p -> p.getGenero() == Genero.MASCULINO;
     }
 
     private static Consumer<Persona> getPersonayMostrar() {

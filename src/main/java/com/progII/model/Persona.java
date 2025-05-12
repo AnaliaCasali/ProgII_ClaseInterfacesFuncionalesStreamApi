@@ -14,6 +14,9 @@ public class Persona  implements Comparable<Persona> {
         this.edad = edad;
         this.genero = genero;
     }
+    public static void ok(){
+        System.out.println("Metodo estatico de la clase persona");
+    }
 
     public int getId() {
         return id;
